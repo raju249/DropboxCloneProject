@@ -1,6 +1,7 @@
 from flask import Flask,render_template,request,jsonify
 from server.database_setup import User,DBSession
 from server import signupLoginHelpers
+import os
 
 application = Flask(__name__)
 
@@ -35,4 +36,4 @@ def signup():
                 )
 
 if __name__ == "__main__":
-    application.run(host = "0.0.0.0", port = "8080")
+    application.run(host = "0.0.0.0", port = int(os.environ.get("PORT")))
