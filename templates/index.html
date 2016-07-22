@@ -1,0 +1,359 @@
+{% extends "base.html" %}
+
+	{% block title %}
+		SaveIT -- Online File Storage and Sharing 
+	{% endblock%}
+	
+	{% block content %}
+		<div id="loginModal" class="modal fade" role="dialog"  ng-controller="LoginController">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button class="close" type="button" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Sign in</h4>
+		        </div>
+		        <div class="modal-body">
+		          <form class="form-horizontal">
+		          	<div class="form-group">
+					  	<div class="col-md-12">
+					  		<button class="btn btn-block btn-social btn-danger btn-google">
+					  			<span class="fa fa-google"></span>Sign in with Google</button>
+					  	</div>
+					</div>
+					<div class="form-group">
+					  	<div class="col-md-12 hr-padding">
+					  		<div class="hr-label">
+					  			<span class="hr-label-text">or</span>
+					  		</div>
+					  	</div>
+					</div>
+		            <div class="form-group">
+		              <div class="col-md-12">
+		              	<input type="email"  class="form-control" placeholder="Email"
+		              	ng-model="loginData.email">
+		              </div>
+		          	</div>
+		          	<div class="form-group">
+		          		<div class="col-md-12">
+		          			<input type="password" class="form-control" placeholder="Password"
+		          			ng-model="loginData.password">
+		          		</div>
+		          	</div>
+		          	<div class="form-group">
+		          		<div class="col-md-6">
+		          			<div class="checkbox">
+						        <label>
+						          <input type="checkbox"> Remember me
+						        </label>
+						      </div>
+		          		</div>
+		          		<div class="col-md-6">
+		          			<button class="btn btn-success btn-block pull-right" ng-click="login()">Sign in</button>
+		          		</div>
+		          	</div>
+		          	<div class="form-group">
+		          		<div class="col-md-12">
+		          			<a href="#">Forgot your password?</a>
+		          		</div>
+		          	</div>
+		          </form>
+		        </div>
+		      </div>
+		    </div>
+		</div>
+		<nav class="navbar navbar-default navbar-fixed-top" id="navbar">
+			<div class="container">
+				<div class="navbar-header">
+		          <button type="button" class="navbar-toggle collapsed"
+				          data-toggle="collapse" data-target="#navbar-main"
+				          aria-expanded="false" aria-controls="navbar">
+		              <span class="sr-only">Toggle navigation</span>
+		              <span class="icon-bar"></span>
+		              <span class="icon-bar"></span>
+		              <span class="icon-bar"></span>
+		          </button>
+		          <a href="#" class="navbar-brand">Save IT</a>
+		    	</div>
+				<div class="navbar-collapse collapse" id="navbar-main">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Download Save IT app</a></li>
+						<li><a href="#" id="loginBtn">Log In</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="content">
+			<div class="row" ng-controller="SignUpController">
+				<div class="col-md-6">
+					<h2>SaveIT works the way you do.</h2>
+					<p>Get to all your files from anywhere, on any device, and share them with anyone.</p>
+				</div>
+				<div class="col-md-6">
+					<form class="form-horizontal">
+						<div class="error form-group" ng-if="error">
+							<div class="col-sm-10">
+								<h6 id="errorMessage"></h6>
+							</div>
+						</div>
+						  <div class="form-group">
+							<div class="col-sm-10">
+							  <input type="text" class="form-control" id="name" placeholder="Name" ng-model="signUpData.name">
+							</div>
+						  </div>
+						  <div class="form-group">
+							<div class="col-sm-5">
+							  <input type="email" class="form-control" id="email" placeholder="Email" ng-model="signUpData.email">
+							</div>
+							<div class="col-sm-5">
+							  <input type="password" class="form-control" id="password" placeholder="Password" ng-model="signUpData.password">
+							</div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-10">
+						      <div class="checkbox">
+						        <label>
+						          <input type="checkbox"> I agree to SaveIT terms.
+						        </label>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="form-group">
+							<div class="col-sm-10">
+							  <button type="submit" class="btn btn-success btn-block" ng-click="signup()">Sign up for free</button>
+							</div>
+						  </div>
+						  <div class="form-group">
+						  	<div class="col-sm-10">
+						  		<div class="hr-label">
+						  			<span class="hr-label-text">or</span>
+						  		</div>
+						  	</div>
+						  </div>
+						  <div class="form-group">
+						  	<div class="col-sm-10">
+						  		<button class="btn btn-block btn-social btn-danger btn-google"><span class="fa fa-google"></span>Sign up free with Google</button>
+						  	</div>
+						  </div>
+					</form>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-6">
+		    		<img class="img-responsive" src="https://cfl.dropboxstatic.com/static/images/index/animation-strips/static-images/docs-anywhere-vflA67DXc.png">
+			    </div>
+			    <div class="col-md-6 text-in-center">
+			    	<h2>Take your docs anywhere</h2>
+			    	<p>Save files on your computer, then access them on your phone from the road. 
+			    	Everything you keep in SaveIT is synced automatically to all your devices.</p>
+			    	<a class="btn proper-align" id="first">
+			    		<i class="material-icons">add_circle_outline</i>
+			    		<span class="text">Learn more</span>
+			    	</a>
+			    </div>
+			</div>
+			<div id="first-content" class="content-row">
+			    <div class="row">
+			    	<div class="col-md-4">
+			    		<h2 class="heading">All your files</h2>
+			    		<img class="img-responsive img-circle" 
+			    			src="https://cfl.dropboxstatic.com/static/images/index/all_your_files-vflH9BpRk.png">
+			    		<p class="info heading">
+			    			Save any kind of file in Dropbox, 
+			    			from photos, videos, and music to Microsoft Office and Adobe files.
+			    		</p>
+			    	</div>
+			    	<div class="col-md-4">
+			    		<h2 class="heading">Any device</h2>
+			    		<img class="img-responsive img-circle" 
+			    			src="https://cfl.dropboxstatic.com/static/images/index/any_device-vflAudVJW.png">
+			    		<p class="info heading">
+			    			Sync files across all your devices, 
+			    			whether you use a PC, Mac, Android, iPad, iPhone, or Windows Phone.
+			    		</p>
+			    	</div>
+			    	<div class="col-md-4">
+			    		<h2 class="heading">Offline access</h2>
+			    		<img class="img-responsive img-circle" 
+			    			src="https://cfl.dropboxstatic.com/static/images/index/offline_access-vfl3bndh9.png">
+			    		<p class="info heading">
+			    			Your files are available on your computer even when you're 
+			    			offline, so you can work from anywhere.
+			    		</p>
+			    	</div>
+			    </div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-6 text-in-center">
+					<h2>Send videos quickly</h2>
+					<p>Send your entire wedding video to family with a simple link. 
+					It's easy to share large files with anyone -- even if they don't 
+					have a SaveIT account.</p>
+					<a class="btn proper-align" id="second">
+						<i class="material-icons">add_circle_outline</i>
+						<span class="text">Learn more</span>
+					</a>
+				</div>
+				<div class="col-md-6">
+					<img class="img-responsive" src="https://cfl.dropboxstatic.com/static/images/index/animation-strips/static-images/send-videos-quickly-vflhWvqHj.png">
+				</div>
+			</div>
+			<div id="second-content" class="content-row">
+				<div class="row">
+					<div class="col-md-4">
+						<h2 class="heading">Large files</h2>
+						<img class="img-responsive img-circle" 
+							src="https://cfl.dropboxstatic.com/static/images/index/tiburon/shared-folders-vfl2xNLjE.png">
+						<p class="info heading">
+							Sharing large files is as fast as sharing small ones. 
+							Put any file in your SaveIT, then send it quickly with a simple link.
+						</p>
+					</div>
+					<div class="col-md-4">
+						<h2 class="heading">Simple sharing</h2>
+						<img class="img-responsive img-circle" 
+							src="https://cfl.dropboxstatic.com/static/images/index/simple_sharing-vfl6GdL6B.png">
+						<p class="info heading">
+							Create a link to share any file in your Dropbox. Then send the link by email, chat, or even text message.
+						</p>
+					</div>
+					<div class="col-md-4">
+						<h2 class="heading">Preview and download</h2>
+						<img class="img-responsive img-circle" 
+							src="https://cfl.dropboxstatic.com/static/images/index/preview_and_download-vflY0wjwA.png">
+						<p class="info heading">
+							When you send someone a link to a file, 
+							they can preview and download a copy - even if they don't have a SaveIT account.
+						</p>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-6">
+					<img class="img-responsive" src="https://cfl.dropboxstatic.com/static/images/index/animation-strips/static-images/keep-your-photos-safe-vflZe9PHC.png">
+				</div>
+				<div class="col-md-6 text-in-center">
+					<h2>Keep your photos safe</h2>
+					<p>Keep your photos safe Back up vacation photos automatically from your phone or computer. That way, memories are safe as soon as you make them, and you can relive them from any device.</p>
+					<a class="btn proper-align" id="third">
+						<i class="material-icons">add_circle_outline</i>
+						<span class="text">Learn more</span>
+					</a>
+				</div>
+			</div>
+			<div id="third-content" class="content-row">
+				<div class="row">
+					<div class="col-md-6 two-col">
+						<h2 class="heading">Automatic backup</h2>
+						<img class="img-responsive img-circle" 
+							src="https://cfl.dropboxstatic.com/static/images/index/automatic_backup-vfl_WNwPR.png">
+						<p class="info heading">
+							Turn on Camera Upload to back up photos automatically from your Camera Roll to SaveIT.
+						</p>
+					</div>
+					<div class="col-md-6">
+						<h2 class="heading">Organization</h2>
+						<img class="img-responsive img-circle" 
+							src="https://cfl.dropboxstatic.com/static/images/index/organization-vflB3ImJo.png">
+						<p class="info heading">
+							Photos are organized by date and accessible on any device. You can also create and share albums.
+						</p>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-6 text-in-center">
+					<h2>Never lose a file again</h2>
+					<p>
+						Left your phone on the train? Your photos, docs, and videos are safe. 
+						Just sign in to SaveIT from any device, and your files will be there waiting for you.
+					</p>
+					<a class="btn proper-align" id="fourth">
+						<i class="material-icons">add_circle_outline</i>
+						<span class="text">Learn more</span>
+					</a>
+				</div>
+				<div class="col-md-6">
+					<img class="img-responsive" src="https://cfl.dropboxstatic.com/static/images/index/animation-strips/static-images/never-lose-a-file-again-vfleR0in4.png">
+				</div>
+			</div>
+			<div id="fourth-content" class="content-row">
+				<div class="row">
+					<div class="col-md-6 two-col">
+						<h2 class="heading">Security</h2>
+						<img class="img-responsive img-circle" 
+							src="https://cfl.dropboxstatic.com/static/images/index/sec-verification-vflzoigzY.png">
+						<p class="info heading">
+							SaveIT protects files in transit and at rest, 
+							and offers security features like sharing controls.
+						</p>
+					</div>
+					<div class="col-md-6">
+						<h2 class="heading">File recovery</h2>
+						<img class="img-responsive img-circle" 
+							src="https://cfl.dropboxstatic.com/static/images/index/file_recovery-vfldsGm-1.png">
+						<p class="info heading">
+							SaveIT Pro includes 30-day version history, in case you accidentally delete a file or want to restore a previous version.
+						</p>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<div class="col-md-10 col-md-offset-2">
+								<h2>Get Started!</h2>
+							</div>
+						</div>
+						  <div class="form-group">
+							<div class="col-md-10">
+							  <input type="text" class="form-control" id="name" placeholder="Name">
+							</div>
+						  </div>
+						  <div class="form-group">
+							<div class="col-md-10">
+							  <input type="email" class="form-control" id="email" placeholder="Email">
+							</div>
+						  </div>
+						  <div class="form-group">
+						  	<div class="col-md-10">
+							  <input type="password" class="form-control" id="password" placeholder="Password">
+							</div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-md-10">
+						      <div class="checkbox">
+						        <label>
+						          <input type="checkbox"> I agree to SaveIT terms.
+						        </label>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="form-group">
+							<div class="col-md-10">
+							  <button type="submit" class="btn btn-success btn-block">Sign up for free</button>
+							</div>
+						  </div>
+						  <div class="form-group">
+						  	<div class="col-md-10">
+						  		<div class="hr-label">
+						  			<span class="hr-label-text">or</span>
+						  		</div>
+						  	</div>
+						  </div>
+						  <div class="form-group">
+						  	<div class="col-md-10">
+						  		<button class="btn btn-block btn-social btn-danger btn-google"><span class="fa fa-google"></span>Sign up free with Google</button>
+						  	</div>
+						  </div>
+					</form>
+				</div>
+			</div>
+			<hr>
+		</div>
+	{% endblock %}

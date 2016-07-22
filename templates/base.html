@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+		integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="../static/css/saveit.css" rel="stylesheet">
+		<link href="../static/css/font-awesome.css" rel="stylesheet">
+		<link href="../static/css/bootstrap-social.css" rel="stylesheet">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" 
+		integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
+		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" 
+		crossorigin="anonymous"></script>
+		<!--Angular from google cdn -->
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<script src="../static/js/index.js"></script>
+		<script src="../static/app/LoginController.js"></script>
+		<script src="../static/app/SignupController.js"></script>
+	</head>
+	<body class="container" ng-app="saveItApp">
+	    {% block content %}
+	    {% endblock %}
+	    	<footer class="footer container-fluid">
+			<div class="row">
+				<div class="col-md-2">
+					<h3>SaveIT</h3>
+					<ul>
+						<li>Desktop App</li>
+						<li>Mobile App</li>
+						<li>Plans</li>
+					</ul>
+				</div>
+				<div class="col-md-2">
+					<h3>Company</h3>
+					<ul>
+						<li>About Us</li>
+						<li>Jobs</li>
+						<li>Press</li>
+					</ul>
+				</div>
+				<div class="col-md-2">
+					<h3>Support</h3>
+					<ul>
+						<li>Contact Us</li>
+						<li>Help Center</li>
+						<li>Privacy and terms</li>
+					</ul>
+				</div>
+				<div class="col-md-2">
+					<h3>Products</h3>
+					<ul>
+						<li>Pro</li>
+						<li>Business</li>
+						<li>Enterprise</li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>
