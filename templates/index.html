@@ -5,68 +5,13 @@
 	{% endblock%}
 	
 	{% block content %}
-		<div id="loginModal" class="modal fade" role="dialog"  ng-controller="LoginController">
-		    <div class="modal-dialog">
-		      <div class="modal-content">
-		        <div class="modal-header">
-		          <button class="close" type="button" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title">Sign in</h4>
-		        </div>
-		        <div class="modal-body">
-		          <form class="form-horizontal">
-		          	<div class="form-group">
-					  	<div class="col-md-12">
-					  		<button class="btn btn-block btn-social btn-danger btn-google">
-					  			<span class="fa fa-google"></span>Sign in with Google</button>
-					  	</div>
-					</div>
-					<div class="form-group">
-					  	<div class="col-md-12 hr-padding">
-					  		<div class="hr-label">
-					  			<span class="hr-label-text">or</span>
-					  		</div>
-					  	</div>
-					</div>
-		            <div class="form-group">
-		              <div class="col-md-12">
-		              	<input type="email"  class="form-control" placeholder="Email"
-		              	ng-model="loginData.email">
-		              </div>
-		          	</div>
-		          	<div class="form-group">
-		          		<div class="col-md-12">
-		          			<input type="password" class="form-control" placeholder="Password"
-		          			ng-model="loginData.password">
-		          		</div>
-		          	</div>
-		          	<div class="form-group">
-		          		<div class="col-md-6">
-		          			<div class="checkbox">
-						        <label>
-						          <input type="checkbox"> Remember me
-						        </label>
-						      </div>
-		          		</div>
-		          		<div class="col-md-6">
-		          			<button class="btn btn-success btn-block pull-right" ng-click="login()">Sign in</button>
-		          		</div>
-		          	</div>
-		          	<div class="form-group">
-		          		<div class="col-md-12">
-		          			<a href="#">Forgot your password?</a>
-		          		</div>
-		          	</div>
-		          </form>
-		        </div>
-		      </div>
-		    </div>
-		</div>
+		<div login-directive></div>
 		<nav class="navbar navbar-default navbar-fixed-top" id="navbar">
-			<div class="container">
-				<div class="navbar-header">
+		    <div class="container">
+		    	<div class="navbar-header">
 		          <button type="button" class="navbar-toggle collapsed"
-				          data-toggle="collapse" data-target="#navbar-main"
-				          aria-expanded="false" aria-controls="navbar">
+		    	          data-toggle="collapse" data-target="#navbar-main"
+		    	          aria-expanded="false" aria-controls="navbar">
 		              <span class="sr-only">Toggle navigation</span>
 		              <span class="icon-bar"></span>
 		              <span class="icon-bar"></span>
@@ -74,13 +19,13 @@
 		          </button>
 		          <a href="#" class="navbar-brand">Save IT</a>
 		    	</div>
-				<div class="navbar-collapse collapse" id="navbar-main">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Download Save IT app</a></li>
-						<li><a href="#" id="loginBtn">Log In</a></li>
-					</ul>
-				</div>
-			</div>
+		    	<div class="navbar-collapse collapse" id="navbar-main">
+		    		<ul class="nav navbar-nav navbar-right">
+		    			<li><a href="#">Download Save IT app</a></li>
+		    			<li><a href="#" id="loginBtn">Log In</a></li>
+		    		</ul>
+		    	</div>
+		    </div>
 		</nav>
 		<div class="content">
 			<div class="row" ng-controller="SignUpController">
@@ -90,9 +35,11 @@
 				</div>
 				<div class="col-md-6">
 					<form class="form-horizontal">
-						<div class="error form-group" ng-if="error">
+						<div class="form-group" ng-if="error || success" 
+							ng-class="{success:success, error:error}">
 							<div class="col-sm-10">
-								<h6 id="errorMessage"></h6>
+								<h6 ng-if="success"> Signup successful :)</h6>
+								<h6 ng-if="error">User with same email already exists :(</h6>
 							</div>
 						</div>
 						  <div class="form-group">

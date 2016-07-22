@@ -16,6 +16,10 @@ body {
 	background:#ffecec;
 	border:1px solid #f5aca6;
 }
+.success {
+	background:#b1f486;
+	border:1px solid #c9f5a6;
+}
 hr {
 	border: 1px solid RGBA(24, 21, 21, 0.34);
 }

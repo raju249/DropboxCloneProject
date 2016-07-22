@@ -13,4 +13,9 @@ angular.module("saveItApp",[])
                            console.log(response); 
                         };
             };
-        }]);
+        }])
+        .directive("loginDirective",function(){
+            return {
+                templateUrl : "../static/views/login.html"
+            };
+        });
