@@ -35,5 +35,9 @@ def signup():
                     }
                 )
 
+@application.route("/dashboard", methods = ["GET","POST"])
+def dashboard():
+    return "Dash board goes here"
+
 if __name__ == "__main__":
     application.run(host = "0.0.0.0", port = int(os.environ.get("PORT")))

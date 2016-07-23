@@ -1,7 +1,7 @@
 /* global angular */
 /* global $*/
 angular.module("saveItApp")
-        .controller("SignUpController",['$scope','$http',function($scope,$http){
+        .controller("SignUpController",['$scope','$http','$window',function($scope,$http,$window){
             $scope.error = false;
             $scope.success = false;
             $scope.accept_terms = false;
@@ -18,6 +18,7 @@ angular.module("saveItApp")
                                     $scope.success = true;
                                     $scope.error = false;
                                     toggle_data(false,"Redirecting to dashboard...");
+                                    $window.open("/dashboard",'_self');
                                 }
                                 else
                                 {
