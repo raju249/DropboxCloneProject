@@ -1,15 +1,14 @@
 /* global angular */
-/* global $*/
+/* global signupForm */
 angular.module("saveItApp")
-        .controller("SignUpController",['$scope','$http','$window',function($scope,$http,$window){
+        .controller("SignUpController",['$scope','$http','$window','toggleData',function($scope,$http,$window,toggleData){
             $scope.error = false;
             $scope.success = false;
             $scope.accept_terms = false;
             $scope.show_accept_terms = false;
             $scope.signup = function(){
                 if ($scope.accept_terms){
-                    $("#signup").addClass("disabled");
-                    $("#signup").text("Signing up...");
+                    toggleData.toggle_data("signup",false,"Signing up...");
                     $http.post("/signup", JSON.stringify($scope.signUpData))
                      .then(
                             function(response){
@@ -17,30 +16,23 @@ angular.module("saveItApp")
                                 if (resp["data"]["status"] == "200OK" && resp["data"]["message"] == "success"){
                                     $scope.success = true;
                                     $scope.error = false;
-                                    toggle_data(false,"Redirecting to dashboard...");
+                                    toggleData.toggle_data("signup",false,"Redirecting to dashboard...");
                                     $window.open("/dashboard",'_self');
                                 }
                                 else
                                 {
                                     $scope.error = true;
                                     $scope.success = false;
-                                    toggle_data(true,"Sign up for free");
+                                    toggleData.toggle_data("signup",true,"Sign up for free");
                                 }
                             },
                             function(response){
-                                console.log(response)
+                                console.log(response);
                             }
-                         )
+                         );
                 }
                 else{
                     $scope.show_accept_terms = true;
                 }
             };
         }]);
-    
-    var toggle_data = function(bool,data){
-        if (bool){
-            $("#signup").removeClass("disabled");
-        }
-        $("#signup").text(data);
-    };

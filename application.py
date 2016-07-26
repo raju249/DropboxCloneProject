@@ -38,6 +38,31 @@ def signup():
 @application.route("/dashboard", methods = ["GET","POST"])
 def dashboard():
     return "Dash board goes here"
+    
+@application.route("/login", methods= ["GET","POST"])
+def login():
+    try:
+        session = DBSession()
+        data = request.json
+        email = data["email"]
+        password = data["password"]
+        is_user = signupLoginHelpers.check_user(email,password,session)
+        if is_user:
+            return jsonify(
+                    {
+                        "status" :"200OK",
+                        "message" :"success"
+                    }
+                )
+        return jsonify(
+                {
+                    "status":"404NOTFOUND",
+                    "message":"No user exists"
+                }
+            )
+    except Exception as e:
+        print e
+        return "404"
 
 if __name__ == "__main__":
     application.run(host = "0.0.0.0", port = int(os.environ.get("PORT")))

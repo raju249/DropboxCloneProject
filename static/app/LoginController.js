@@ -1,16 +1,23 @@
 /* global angular */
 angular.module("saveItApp",[])
-        .controller("LoginController",['$scope','$http',function($scope,$http){
+        .controller("LoginController",['$scope','$http','toggleData','$window',function($scope,$http,toggleData,$window){
+            $scope.login_error = false;
             $scope.login = function(){
-                console.log($scope.loginData);
+                toggleData.toggle_data("login",false,"Logging in....");
                 $http.post("/login",JSON.stringify($scope.loginData))
                      .then(function(response){
-                            console.log("I sent it..Check on server side console..");
-                            console.log(response);
+                            if (response["data"]["status"] == "200OK"
+                                && response["data"]["message"] == "success"){
+                                    toggleData.toggle_data("login",false,"Redirecting to dashboard..");
+                                    $window.open("/dashboard","_self");
+                                }
+                            else {
+                                $scope.login_error = true;
+                                toggleData.toggle_data("login",true,"Sign in");
+                            }
                         }),
                         function(response){
-                            console.log("Some error occured :(");
-                           console.log(response); 
+                           toggleData.toggle_data("login",true,"Sign in");
                         };
             };
         }])
