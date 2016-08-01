@@ -23,9 +23,62 @@
 		<script src="../static/app/LoginController.js" type="text/javascript"></script>
 		<script src="../static/app/services.js"></script>
 		<script src="../static/app/SignupController.js" type="text/javascript"></script>
+		<script src="../static/app/FolderNameController.js"></script>
 	</head>
-	<body class="container">
-	    	<footer class="footer container-fluid">
+	<body class="container" ng-controller="FolderNameController">
+		<div folder-directive></div>
+		<div class="row">
+			<div class="col-md-3 pull-right">
+				<i class="material-icons">star_border</i>
+				<a href="#"><sapn class="text">Upgrade account</sapn></a>
+			</div>
+			<div class="col-md-3 pull-right">
+				<i class="material-icons">account_circle</i>
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" 
+					aria-expanded="false">
+					<span class="text">Rajendra kadam</span><i class="material-icons">arrow_drop_down</i>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="#">Account</a></li>
+					<li><a href="#">Change Password</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Log out</a></li>
+  				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="btn-group pull-right">
+				<button id="new_folder" class="btn btn-success btn-sm"><i class="material-icons md-18">create_new_folder</i><span class="text"> New Folder</span></button>
+				<button class="btn btn-info btn-sm"><i class="material-icons md-18">file_upload</i><span class="text"> Upload File</span></button>
+				<button class="btn btn-danger btn-sm"><i class="material-icons md-18">delete</i><span class="text"> Delete File</span></button>
+			</div>
+			<div class="col-md-2">
+				<a href="{{ url_for('index') }}"><h2>SaveIT</h2></a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+			</div>
+			<div class="col-md-9">
+				<table class="table table-striped table-hover">
+				<thead>
+			      <tr>
+			        <th>Folder name</th>
+			        <th>Size</th>
+			        <th>Shared with</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr ng-repeat="folder in folder_names">
+			        <td><i class="material-icons">folder</i><span class="text">{{ ' {{folder.name}}' }}</span></td>
+			        <td>{{ '{{folder.size}}' }} MB</td>
+			        <td><i class="material-icons">attachment</i><span class="text">{{ '{{folder.shared}}' }}</span></td>
+			      </tr>
+			    </tbody>
+			</table>
+			</div>
+		</div>
+	    <footer class="footer container-fluid">
 			<div class="row">
 				<div class="col-md-2">
 					<h3>SaveIT</h3>

@@ -37,7 +37,7 @@ def signup():
 
 @application.route("/dashboard", methods = ["GET","POST"])
 def dashboard():
-    return "Dash board goes here"
+    return render_template("dashboard.html")
     
 @application.route("/login", methods= ["GET","POST"])
 def login():

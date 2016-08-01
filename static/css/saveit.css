@@ -37,6 +37,10 @@ hr {
 	padding:0px;
 	color:black;
 }
+
+.md-18 {
+	font-size:18px;
+}
 .proper-align:hover {
 	color:#2196f3;
 }

@@ -4,6 +4,9 @@ $(document).ready(function(){
         $("#loginModal").modal("show");
     });
     
+    $("#new_folder").click(function(){
+        $("#folderNameModal").modal("show");
+    });
     $("#first").click(function(){
         show(this.id);
     });
