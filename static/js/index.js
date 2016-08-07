@@ -7,6 +7,11 @@ $(document).ready(function(){
     $("#new_folder").click(function(){
         $("#folderNameModal").modal("show");
     });
+    
+    $("#new_file").click(function(){
+        $("#fileUploadModel").modal("show");    
+    });
+    
     $("#first").click(function(){
         show(this.id);
     });

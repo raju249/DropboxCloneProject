@@ -37,7 +37,9 @@ hr {
 	padding:0px;
 	color:black;
 }
-
+.new{
+	width:10%;
+}
 .md-18 {
 	font-size:18px;
 }
