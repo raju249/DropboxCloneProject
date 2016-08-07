@@ -10,4 +10,6 @@ requests==2.2.1
 simplejson==3.3.1
 six==1.5.2
 urllib3==1.7.1
+dynamo3==0.4.9
+flywheel==0.4.10
 
