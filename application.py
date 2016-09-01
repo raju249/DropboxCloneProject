@@ -1,10 +1,21 @@
 from flask import Flask,render_template,request,jsonify
 from server.database_setup import User,DBSession
 from server import signupLoginHelpers
+from flask_login import login_required,logout_user,current_user
 import os
 
 application = Flask(__name__)
+from flask_login import LoginManager,login_user
+login_manager = LoginManager()
+login_manager.session_protection = "strong"
+login_manager.login_view = "loginPage"
+login_manager.init_app(application)
 
+
+@application.route("/loginPage", methods = ["GET","POST"])
+def loginPage():
+    return render_template("login.html")
+    
 @application.route("/",methods = ["GET","POST"])
 def index():
     return render_template("index.html")
@@ -36,6 +47,7 @@ def signup():
                 )
 
 @application.route("/dashboard", methods = ["GET","POST"])
+@login_required
 def dashboard():
     return render_template("dashboard.html")
     
@@ -48,6 +60,7 @@ def login():
         password = data["password"]
         is_user = signupLoginHelpers.check_user(email,password,session)
         if is_user:
+            login_user(is_user)
             return jsonify(
                     {
                         "status" :"200OK",

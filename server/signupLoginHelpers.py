@@ -10,6 +10,6 @@ def check_duplicate_user(user,session):
 def check_user(email,password,session):
     is_user = session.query(User).filter_by(email = email).first()
     if is_user and is_user.password == password:
-        return True
+        return is_user
     return False
         
