@@ -16,9 +16,18 @@ class User(Base):
     
 class Folders(Base):
     __tablename__ = 'folder'
+    
     id = Column(Integer, primary_key = True)
     name = Column(String(250), unique = True, nullable = False)
     num_files = Column(Integer, unique = False, nullable = False)
+    
+    
+class FolderOwner(Base):
+    __tablename__ = 'ownerfolder'
+    
+    id = Column(Integer, primary_key = True)
+    fid = Column(Integer, unique = False, nullable = False)
+    name = Column(String(250), unique = False, nullable = False)
     
 engine = create_engine("sqlite:///saveit.db")
 Base.metadata.create_all(engine)
