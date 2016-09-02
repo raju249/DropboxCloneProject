@@ -5,7 +5,10 @@
 	{% endblock%}
 	
 	{% block content %}
-        <form class="form-horizontal" name="loginForm">
+	<div class="row">
+	  <div class="col-md-4 col-md-offset-4">
+	    <h3>Login to your SaveIT account</h3>
+        <form class="form-horizontal" name="loginForm" ng-controller="LoginController">
               	<div class="form-group">
     					  	<div class="col-md-12">
     					  		<button class="btn btn-block btn-social btn-danger btn-google">
@@ -57,4 +60,6 @@
               		</div>
               	</div>
         </form>
+    </div>
+</div>
     {% endblock %}

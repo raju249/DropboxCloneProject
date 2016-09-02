@@ -13,6 +13,7 @@ class User(Base,UserMixin):
     name = Column(String(250), unique = False, nullable = False)
     email = Column(String(250), unique = True, nullable = False)
     password = Column(String(250), unique = False, nullable = True)
+    rootFolder = Column(String(250), unique = True, nullable = False)
     
     
 class Folders(Base):
@@ -21,15 +22,9 @@ class Folders(Base):
     id = Column(Integer, primary_key = True)
     name = Column(String(250), unique = True, nullable = False)
     num_files = Column(Integer, unique = False, nullable = False)
-    
-    
-class FolderOwner(Base):
-    __tablename__ = 'ownerfolder'
-    
-    id = Column(Integer, primary_key = True)
-    fid = Column(Integer, unique = False, nullable = False)
-    name = Column(String(250), unique = False, nullable = False)
-    
+    parentRootFolder = Column(String(250), unique = True, nullable = False)
+
+
 engine = create_engine("sqlite:///saveit.db")
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine

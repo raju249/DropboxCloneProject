@@ -1,4 +1,5 @@
 from server.database_setup import User,DBSession
+import os
 
 def check_duplicate_user(user,session):
     duplicateUser = session.query(User).filter_by(email = user.email).first()
@@ -13,3 +14,9 @@ def check_user(email,password,session):
         return is_user
     return False
         
+def createFolder(name,parentFolder):
+    try:
+        os.mkdir(parentFolder + "/" + name)
+        return True
+    except:
+        return False
