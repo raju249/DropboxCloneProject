@@ -22,7 +22,11 @@
 		    	<div class="navbar-collapse collapse" id="navbar-main">
 		    		<ul class="nav navbar-nav navbar-right">
 		    			<li><a href="#">Download Save IT app</a></li>
+		    			{% if current_user.is_authenticated %}
+		    			<li><a href="{{ url_for('dashboard') }}">My account</a></li>
+		    			{% else %}
 		    			<li><a href="#" id="loginBtn">Log In</a></li>
+		    			{% endif %}
 		    		</ul>
 		    	</div>
 		    </div>
@@ -33,61 +37,63 @@
 					<h2>SaveIT works the way you do.</h2>
 					<p>Get to all your files from anywhere, on any device, and share them with anyone.</p>
 				</div>
-				<div class="col-md-6">
-					<form class="form-horizontal" name="signupForm">
-						<div class="form-group"
-							ng-class="{success:success, error:error}">
-							<div class="col-sm-10">
-								<h6 ng-if="success"> Signup successful :)</h6>
-								<h6 ng-if="error">User with same email already exists :(</h6>
+				{% if not current_user.is_authenticated %}
+					<div class="col-md-6">
+						<form class="form-horizontal" name="signupForm">
+							<div class="form-group"
+								ng-class="{success:success, error:error}">
+								<div class="col-sm-10">
+									<h6 ng-if="success"> Signup successful :)</h6>
+									<h6 ng-if="error">User with same email already exists :(</h6>
+								</div>
 							</div>
-						</div>
-						  <div class="form-group">
-							<div class="col-sm-10">
-							  <input type="text" class="form-control" name="name" 
-							  placeholder="Name" ng-model="signUpData.name" required>
-							</div>
-						  </div>
-						  <div class="form-group">
-							<div class="col-sm-5">
-							  <input type="email" class="form-control" name="email" 
-							  placeholder="Email" ng-model="signUpData.email" required>
-							</div>
-							<div class="col-sm-5">
-							  <input type="password" class="form-control" name="password" 
-							  placeholder="Password" ng-model="signUpData.password" required>
-							</div>
-						  </div>
-						  <div class="form-group">
-						    <div class="col-sm-10">
-						      <div class="checkbox">
-						        <label>
-						          <input type="checkbox" ng-model="accept_terms"> I agree to SaveIT terms.
-						          <h6 ng-if="show_accept_terms && !accept_terms" class="error">Please accept terms!</h6>
-						        </label>
-						      </div>
-						    </div>
-						  </div>
-						  <div class="form-group">
-							<div class="col-sm-10">
-							  <button type="submit" id="signup" 
-									class="btn btn-success btn-block" ng-click="signup()" ng-disabled="signupForm.$invalid">Sign up for free</button>
-							</div>
-						  </div>
-						  <div class="form-group">
-						  	<div class="col-sm-10">
-						  		<div class="hr-label">
-						  			<span class="hr-label-text">or</span>
-						  		</div>
-						  	</div>
-						  </div>
-						  <div class="form-group">
-						  	<div class="col-sm-10">
-						  		<button class="btn btn-block btn-social btn-danger btn-google"><span class="fa fa-google"></span>Sign up free with Google</button>
-						  	</div>
-						  </div>
-					</form>
-				</div>
+							  <div class="form-group">
+								<div class="col-sm-10">
+								  <input type="text" class="form-control" name="name" 
+								  placeholder="Name" ng-model="signUpData.name" required>
+								</div>
+							  </div>
+							  <div class="form-group">
+								<div class="col-sm-5">
+								  <input type="email" class="form-control" name="email" 
+								  placeholder="Email" ng-model="signUpData.email" required>
+								</div>
+								<div class="col-sm-5">
+								  <input type="password" class="form-control" name="password" 
+								  placeholder="Password" ng-model="signUpData.password" required>
+								</div>
+							  </div>
+							  <div class="form-group">
+							    <div class="col-sm-10">
+							      <div class="checkbox">
+							        <label>
+							          <input type="checkbox" ng-model="accept_terms"> I agree to SaveIT terms.
+							          <h6 ng-if="show_accept_terms && !accept_terms" class="error">Please accept terms!</h6>
+							        </label>
+							      </div>
+							    </div>
+							  </div>
+							  <div class="form-group">
+								<div class="col-sm-10">
+								  <button type="submit" id="signup" 
+										class="btn btn-success btn-block" ng-click="signup()" ng-disabled="signupForm.$invalid">Sign up for free</button>
+								</div>
+							  </div>
+							  <div class="form-group">
+							  	<div class="col-sm-10">
+							  		<div class="hr-label">
+							  			<span class="hr-label-text">or</span>
+							  		</div>
+							  	</div>
+							  </div>
+							  <div class="form-group">
+							  	<div class="col-sm-10">
+							  		<button class="btn btn-block btn-social btn-danger btn-google"><span class="fa fa-google"></span>Sign up free with Google</button>
+							  	</div>
+							  </div>
+						</form>
+					</div>
+				{% endif %}
 			</div>
 			<hr>
 			<div class="row">
