@@ -6,7 +6,9 @@ import os
 
 application = Flask(__name__)
 application.config['SECRET_KEY'] = '\x17\xf2\x0e\xa3\xf1G\x8e\xa8\xfd\xbf\xa2\t\xdf;|\x87\xb6\xb5\x8c\xa1\xb6\xd0u\x9d'
-ROOT = "userFolders"
+ROOT = os.getcwd()
+PARENT = os.mkdir(ROOT + "/userFolders")
+
 from flask_login import LoginManager,login_user
 login_manager = LoginManager()
 login_manager.session_protection = "strong"
@@ -47,8 +49,7 @@ def signup():
     session.add(user)
     session.commit()
     session.close()
-    os.mkdir(ROOT + "/" + emailForm)
-    print ROOT + "/" + emailForm
+    os.mkdir(PARENT + "/" + emailForm)
     return jsonify(
                     {
                        "status" : "200OK",
