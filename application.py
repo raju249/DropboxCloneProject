@@ -38,6 +38,7 @@ def signup():
     emailForm = data["email"]
     passwordForm = data["password"]
     root = ROOT + "/" + emailForm
+    print root
     user = User(name = nameForm,email = emailForm,password = passwordForm, rootFolder = root)
     truth = signupLoginHelpers.check_duplicate_user(user,session)
     if truth:
