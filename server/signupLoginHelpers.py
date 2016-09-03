@@ -13,10 +13,3 @@ def check_user(email,password,session):
     if is_user and is_user.password == password:
         return is_user
     return False
-        
-def createFolder(name,parentFolder):
-    try:
-        os.mkdir(parentFolder + "/" + name)
-        return True
-    except:
-        return False

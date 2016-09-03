@@ -3,6 +3,7 @@ from server.database_setup import User,DBSession
 from server import signupLoginHelpers
 from flask_login import login_required,logout_user,current_user
 import os
+from server.folderCreation import createFolderHelper
 
 application = Flask(__name__)
 application.config['SECRET_KEY'] = '\x17\xf2\x0e\xa3\xf1G\x8e\xa8\xfd\xbf\xa2\t\xdf;|\x87\xb6\xb5\x8c\xa1\xb6\xd0u\x9d'
@@ -38,7 +39,6 @@ def signup():
     emailForm = data["email"]
     passwordForm = data["password"]
     root = PARENT + "/" + emailForm
-    print root
     user = User(name = nameForm,email = emailForm,password = passwordForm, rootFolder = root)
     truth = signupLoginHelpers.check_duplicate_user(user,session)
     if truth:
@@ -91,6 +91,31 @@ def login():
         print e
         return "404"
 
+@application.route("/folder", methods = ["GET","POST"])
+def createFolder():
+    try:
+        session = DBSession()
+        data = request.json
+        folderName = data["name"]
+        rootFolder = current_user.rootFolder
+        user_id = current_user.id
+        created = createFolderHelper(rootFolder,folderName,user_id,session)
+        if created:
+            return jsonify(
+                    {
+                        "status":"200OK",
+                    }
+                )
+        else:
+            return jsonify(
+                    {
+                        "status":"400"
+                    }
+                )
+    except Exception as e:
+        print e
+        return "400"
+    
 
 @application.route("/logout")
 def logout():

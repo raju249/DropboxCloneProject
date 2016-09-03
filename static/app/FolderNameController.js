@@ -1,41 +1,35 @@
 /* global angular */
 /* global $*/
 angular.module("saveItApp")
-        .controller("FolderNameController",['$scope',function($scope){
+        .controller("FolderNameController",['$scope','$http','toggleData',function($scope,$http,toggleData){
             $scope.folder_creation_error = false;
             $scope.delete = false;
             var firstPress = false;
-             $scope.folder_names = [
-                {
-                   id:0,
-                   name:"Folder 1",
-                   size: 10,
-                   shared:"--"
-                },
-                {
-                    id:1,
-                    name:"Folder 2",
-                    size:2,
-                    shared:"--"
-                },
-                {
-                    id:2,
-                    name:"Folder 3",
-                    size:6,
-                    shared:"--"
-                }
-            ];
-            
+            $scope.folder_names = [];
             $scope.add_folder = function(){
                 var name = $("#folder_name").val();
+                toggleData.toggle_data("status",false,"Creating...")
                 var new_folder = {
                                     id:$scope.folder_names.length,
                                     name:name,
                                     size:0,
                                     shared:"--"
                                 };
-                $("#folderNameModal").modal("hide");
-                $scope.folder_names.push(new_folder);
+                $http.post("/folder",JSON.stringify(new_folder))
+                        .then(function(response){
+                             if (response["data"]["status"] == "200OK"){
+                                 $("#folderNameModal").modal("hide");
+                             }
+                             else{
+                                 $scope.folder_creation_error = true;
+                                 toggleData.toggle_data("status",true,"Create folder");
+                             }
+                        },
+                        function(response){
+                            console.log(response);
+                            $scope.folder_creation_error = true;
+                            toggleData.toggle_data("status",true,"Create folder");
+                        });
             };
             
             $scope.delete_folder = function(){
