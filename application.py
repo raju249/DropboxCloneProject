@@ -37,7 +37,7 @@ def signup():
     nameForm = data["name"]
     emailForm = data["email"]
     passwordForm = data["password"]
-    root = ROOT + "/" + emailForm
+    root = PARENT + "/" + emailForm
     print root
     user = User(name = nameForm,email = emailForm,password = passwordForm, rootFolder = root)
     truth = signupLoginHelpers.check_duplicate_user(user,session)
@@ -52,6 +52,7 @@ def signup():
     session.commit()
     session.close()
     os.mkdir(PARENT + "/" + emailForm)
+    print PARENT + "/" + emailForm
     return jsonify(
                     {
                        "status" : "200OK",
