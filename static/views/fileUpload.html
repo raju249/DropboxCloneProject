@@ -8,11 +8,17 @@
         <div class="modal-body">
           <form class="form-inline" name="fileUploadForm">
             <div class="form-group">
-              <label class="sr-only" for="folder">Folder name</label>
+              <label class="sr-only" for="folder"></label>
               <div class="input-group">
                 <div class="input-group-addon"><i class="material-icons md-18">file_upload</i></div>
                 <input type="file" class="btn btn-primary" id="file">
               </div>
+            </div>
+            <div class="form-group">
+              <p>Select folder</p>
+              <select>
+                <option ng-repeat="folder in folder_names" value="{{ folder.name }}">{{ folder.name }}</option>
+              </select>
             </div>
             <div class="form-group" ng-if="folder_creation_error">
               <div class="error">

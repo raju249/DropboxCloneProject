@@ -20,7 +20,7 @@ class Folders(Base):
     __tablename__ = 'folder'
     
     id = Column(Integer, primary_key = True)
-    name = Column(String(250), unique = True, nullable = False)
+    name = Column(String(250), unique = False, nullable = False)
     num_files = Column(Integer, unique = False, nullable = False)
     user_id = Column(Integer)
     parentRootFolder = Column(String(250), unique = False, nullable = False)

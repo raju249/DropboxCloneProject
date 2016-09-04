@@ -5,20 +5,37 @@ angular.module("saveItApp")
             $scope.folder_creation_error = false;
             $scope.delete = false;
             var firstPress = false;
+            $scope.areFolders = false;
             $scope.folder_names = [];
+            
+            function getFolders(){
+                $http.get("/userFolder")
+                .then(function(response){
+                    if ((response.data).length != 0){
+                        $scope.folder_names = response.data;
+                        $scope.areFolders = true;
+                        console.log(response)
+                    }
+                },function(response){
+                    console.log(response)
+                });
+            }
+            
+            //call it once to display folder
+            getFolders();
+            
             $scope.add_folder = function(){
                 var name = $("#folder_name").val();
                 toggleData.toggle_data("status",false,"Creating...")
                 var new_folder = {
-                                    id:$scope.folder_names.length,
                                     name:name,
-                                    size:0,
-                                    shared:"--"
                                 };
                 $http.post("/folder",JSON.stringify(new_folder))
                         .then(function(response){
                              if (response["data"]["status"] == "200OK"){
+                                 toggleData.toggle_data("status",true,"Create folder");
                                  $("#folderNameModal").modal("hide");
+                                 getFolders();
                              }
                              else{
                                  $scope.folder_creation_error = true;

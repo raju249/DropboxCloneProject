@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request,jsonify,redirect,url_for
-from server.database_setup import User,DBSession
+from server.database_setup import User,DBSession,Folders
 from server import signupLoginHelpers
 from flask_login import login_required,logout_user,current_user
 import os
@@ -8,7 +8,8 @@ from server.folderCreation import createFolderHelper
 application = Flask(__name__)
 application.config['SECRET_KEY'] = '\x17\xf2\x0e\xa3\xf1G\x8e\xa8\xfd\xbf\xa2\t\xdf;|\x87\xb6\xb5\x8c\xa1\xb6\xd0u\x9d'
 ROOT = os.getcwd()
-os.mkdir(ROOT + "/userFolders")
+if not os.path.exists(ROOT + "/userFolders"):
+    os.mkdir(ROOT + "/userFolders")
 PARENT = ROOT + "/userFolders"
 
 from flask_login import LoginManager,login_user
@@ -52,7 +53,6 @@ def signup():
     session.commit()
     session.close()
     os.mkdir(PARENT + "/" + emailForm)
-    print PARENT + "/" + emailForm
     return jsonify(
                     {
                        "status" : "200OK",
@@ -115,7 +115,21 @@ def createFolder():
     except Exception as e:
         print e
         return "400"
-    
+   
+@application.route("/userFolder",methods = ["GET"])
+def getFolders():
+    try:
+        session = DBSession()
+        folders_array = []
+        folders = session.query(Folders).filter_by(user_id = current_user.id)
+        for folder in folders:
+            folders_array.append({
+                "name":folder.name,
+            })
+        return jsonify(folders_array)
+    except Exception as e:
+        print e
+        return "False"
 
 @application.route("/logout")
 def logout():

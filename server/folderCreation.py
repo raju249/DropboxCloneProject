@@ -7,6 +7,9 @@ def createFolderHelper(rootFolder,folderName,userId,session):
                         num_files = 0,
                         user_id = userId,
                         parentRootFolder = rootFolder)
+        session.add(folder)
+        session.commit()
+        session.close()
         return True
     except Exception as e:
         print e
