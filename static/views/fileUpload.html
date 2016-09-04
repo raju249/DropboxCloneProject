@@ -6,17 +6,17 @@
           <h4 class="modal-title">Upload File</h4>
         </div>
         <div class="modal-body">
-          <form class="form-inline" name="fileUploadForm">
+          <form class="form-inline" name="fileUploadForm" enctype=multipart/form-data id="fileForm">
             <div class="form-group">
               <label class="sr-only" for="folder"></label>
               <div class="input-group">
                 <div class="input-group-addon"><i class="material-icons md-18">file_upload</i></div>
-                <input type="file" class="btn btn-primary" id="file">
+                <input type="file" class="btn btn-primary" id="file" name="media">
               </div>
             </div>
             <div class="form-group">
               <p>Select folder</p>
-              <select>
+              <select id="folderName">
                 <option ng-repeat="folder in folder_names" value="{{ folder.name }}">{{ folder.name }}</option>
               </select>
             </div>
@@ -25,7 +25,7 @@
                 <h5 style="padding-left:15px; padding-right:15px;">Some text</h5>
               </div>
             </div>
-            <button class="btn btn-success pull-right" ng-click="add_folder()">Upload File</button>
+            <button class="btn btn-success pull-right" ng-click="upload_file()">Upload File</button>
           </form>
         </div>
       </div>

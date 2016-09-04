@@ -116,6 +116,17 @@ def createFolder():
         print e
         return "400"
    
+@application.route("/uploadFile",methods = ["GET","POST"])
+def uploadFile():
+    try:
+        data = request.json
+        print data
+        return "True"
+    except Exception as e:
+        print e
+        return "False"
+        
+
 @application.route("/userFolder",methods = ["GET"])
 def getFolders():
     try:

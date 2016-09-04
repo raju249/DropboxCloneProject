@@ -5,7 +5,8 @@ angular.module("saveItApp")
             $scope.folder_creation_error = false;
             $scope.delete = false;
             var firstPress = false;
-            $scope.areFolders = false;
+            $scope.areFolders = true;
+            $scope.loading = true;
             $scope.folder_names = [];
             
             function getFolders(){
@@ -14,7 +15,11 @@ angular.module("saveItApp")
                     if ((response.data).length != 0){
                         $scope.folder_names = response.data;
                         $scope.areFolders = true;
-                        console.log(response)
+                        $scope.loading = false;
+                    }
+                    else{
+                        $scope.loading = false;
+                        $scope.areFolders = false;
                     }
                 },function(response){
                     console.log(response)
@@ -71,6 +76,14 @@ angular.module("saveItApp")
                 else{
                     firstPress = true;
                 }
+            }
+            
+            $scope.upload_file = function(){
+                var formData = new FormData($("#fileForm")[0]);
+                console.log(formData);
+                var folder = $("#folderName").val();
+                console.log(folder);
+                
             }
         }])
         .directive("folderDirective",function(){
