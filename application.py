@@ -123,8 +123,13 @@ def uploadFile():
         session = DBSession()
         file = request.files["file"]
         folder = request.form["folder"]
+        folder_id = session.query(Folders).filter_by(name = str(folder)).first()
         filename = secure_filename(file.filename)
         file.save(os.path.join(current_user.rootFolder + "/" + folder + "/",filename))
+        db_file = Files(filename,folder_id.id,current_user.rootFolder + "/" + folder)
+        session.add(db_file)
+        session.commit()
+        session.close()
         return "True"
     except Exception as e:
         print e

@@ -31,6 +31,7 @@ class Files(Base):
     
     id = Column(Integer,primary_key = True)
     name = Column(String(500), unique = False, nullable = False)
+    folder_id = Column(Integer)
     parentFolder = Column(String(250), unique = False, nullable = False)
     
     
