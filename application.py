@@ -1,8 +1,9 @@
 from flask import Flask,render_template,request,jsonify,redirect,url_for
-from server.database_setup import User,DBSession,Folders
+from server.database_setup import User,DBSession,Folders,Files
 from server import signupLoginHelpers
 from flask_login import login_required,logout_user,current_user
 import os
+from werkzeug.utils import secure_filename
 from server.folderCreation import createFolderHelper
 
 application = Flask(__name__)
@@ -119,8 +120,11 @@ def createFolder():
 @application.route("/uploadFile",methods = ["GET","POST"])
 def uploadFile():
     try:
-        data = request.json
-        print data
+        session = DBSession()
+        file = request.files["file"]
+        folder = request.form["folder"]
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(current_user.rootFolder + "/" + folder + "/",filename))
         return "True"
     except Exception as e:
         print e

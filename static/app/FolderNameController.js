@@ -31,7 +31,7 @@ angular.module("saveItApp")
             
             $scope.add_folder = function(){
                 var name = $("#folder_name").val();
-                toggleData.toggle_data("status",false,"Creating...")
+                toggleData.toggle_data("status",false,"Creating...");
                 var new_folder = {
                                     name:name,
                                 };
@@ -79,10 +79,40 @@ angular.module("saveItApp")
             }
             
             $scope.upload_file = function(){
-                var formData = new FormData($("#fileForm")[0]);
-                console.log(formData);
+                $("#progress_bar").show();
+                toggleData.toggle_data("upload_button",false,"Uploading...");
+                var formData = new FormData();
+                var fileInput = $("#file");
+                var file = fileInput[0].files[0];
+                formData.append('file',file);
                 var folder = $("#folderName").val();
-                console.log(folder);
+                formData.append('folder',folder);
+                $.ajax({
+                    
+                    xhr: function(){
+                        
+                        var xhr = new window.XMLHttpRequest();
+                        
+                        xhr.upload.addEventListener('progress',function(e){
+                            
+                            if (e.lengthComputable){
+                                var percent = Math.round((e.loaded /e.total) * 100);
+                                $("#progress_bar").attr('aria-valuenow', percent).css('width', percent + "%").text(percent + "%");
+                            }
+                        });
+                        return xhr;
+                    },
+                    type:"POST",
+                    url: "/uploadFile",
+                    data: formData,
+                    processData:false,
+                    contentType:false,
+                    success:function(){
+                        toggleData.toggle_data("upload_button",true,"Upload File");
+                        $("#progress_bar").hide();
+                        $("#fileUploadModel").modal("hide");
+                    }
+                });
                 
             }
         }])

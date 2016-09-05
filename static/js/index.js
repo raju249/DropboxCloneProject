@@ -1,5 +1,6 @@
 /*global $*/
 $(document).ready(function(){
+    $("#progress-bar").hide();
     $("#loginBtn").click(function(){
         $("#loginModal").modal("show");
     });

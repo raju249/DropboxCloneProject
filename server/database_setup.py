@@ -26,6 +26,14 @@ class Folders(Base):
     parentRootFolder = Column(String(250), unique = False, nullable = False)
 
 
+class Files(Base):
+    __tablename__ = "files"
+    
+    id = Column(Integer,primary_key = True)
+    name = Column(String(500), unique = False, nullable = False)
+    parentFolder = Column(String(250), unique = False, nullable = False)
+    
+    
 engine = create_engine("sqlite:///saveit.db")
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine
