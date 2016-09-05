@@ -126,7 +126,7 @@ def uploadFile():
         folder_id = session.query(Folders).filter_by(name = str(folder)).first()
         filename = secure_filename(file.filename)
         file.save(os.path.join(current_user.rootFolder + "/" + folder + "/",filename))
-        db_file = Files(filename,folder_id.id,current_user.rootFolder + "/" + folder)
+        db_file = Files(name = filename,folder_id = folder_id.id,parentFolder = current_user.rootFolder + "/" + folder)
         session.add(db_file)
         session.commit()
         session.close()
@@ -143,8 +143,10 @@ def getFolders():
         folders_array = []
         folders = session.query(Folders).filter_by(user_id = current_user.id)
         for folder in folders:
+            files = session.query(Files).filter_by(folder_id = folder.id)
             folders_array.append({
                 "name":folder.name,
+                "files":[file.name for file in files]
             })
         return jsonify(folders_array)
     except Exception as e:

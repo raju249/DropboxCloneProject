@@ -111,6 +111,7 @@ angular.module("saveItApp")
                         toggleData.toggle_data("upload_button",true,"Upload File");
                         $("#progress_bar").hide();
                         $("#fileUploadModel").modal("hide");
+                        getFolders();
                     }
                 });
                 

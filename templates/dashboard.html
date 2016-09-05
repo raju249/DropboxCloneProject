@@ -65,16 +65,17 @@
 				<thead>
 			      <tr>
 			      	<th class="new" ng-show="delete">Delete</th>
+			      	<th>Expand</th>
 			        <th>Folder name</th>
-			        <th>Shared</th>
+			        <th># Files</th>
 			      </tr>
 			    </thead>
 			    <tbody>
 			      <tr ng-repeat="folder in folder_names">
+			      	<td><a href="#"><i class="material-icons">add</i></a></td>
 			      	<td ng-show="delete"><input type="checkbox" value="{{ '{{folder.id}}' }}" name="folder"></input></td>
 			        <td><i class="material-icons">folder</i><span class="text">{{ ' {{folder.name}}' }}</span></td>
-			        <td><i class="material-icons">attachment</i><span class="text">{{ '{{folder.shared}}' }}</span></td>
-			        <td id="share"><a href="#">Share</a></td>
+			        <td>{{ '{{folder.files.length}}' }}</td>
 			      </tr>
 			    </tbody>
 			</table>

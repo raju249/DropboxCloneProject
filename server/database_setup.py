@@ -27,7 +27,7 @@ class Folders(Base):
 
 
 class Files(Base):
-    __tablename__ = "files"
+    __tablename__ = 'files'
     
     id = Column(Integer,primary_key = True)
     name = Column(String(500), unique = False, nullable = False)
