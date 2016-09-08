@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,jsonify,redirect,url_for
+from flask import Flask,render_template,request,jsonify,redirect,url_for,send_from_directory
 from server.database_setup import User,DBSession,Folders,Files
 from server import signupLoginHelpers
 from flask_login import login_required,logout_user,current_user
@@ -153,6 +153,23 @@ def getFolders():
         print e
         return "False"
 
+@application.route("/download/<folder>/<file>",methods=["GET","POST"])
+@login_required
+def download(folder,file):
+    folder = current_user.rootFolder + "/" + folder + "/"
+    return send_from_directory(folder,file)
+    
+@application.route("/delete/<folder>/<file>",methods=["GET","POST"])
+@login_required
+def delete(folder,file):
+    try:
+        session = DBSession()
+        session.query(Files).filter_by(name = file).delete()
+        session.commit()
+        os.remove(current_user.rootFolder + "/" + folder + "/" + file)
+        return "True"
+    except Exception as e:
+        print e
 @application.route("/logout")
 def logout():
     logout_user()

@@ -9,6 +9,13 @@ angular.module("saveItApp")
             $scope.loading = true;
             $scope.folder_names = [];
             
+            $scope.show_index = function(){
+                console.log(this);
+                $scope.folder = this.folder.name;
+                console.log($scope.folder);
+                $scope.files = $scope.folder_names[this.$index].files;
+            }
+            
             function getFolders(){
                 $http.get("/userFolder")
                 .then(function(response){

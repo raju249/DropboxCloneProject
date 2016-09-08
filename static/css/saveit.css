@@ -20,7 +20,10 @@ body {
 	background:#b1f486;
 	border:1px solid #c9f5a6;
 }
-
+#content {
+	display:none;
+	padding-left:15px;
+}
 hr {
 	border: 1px solid RGBA(24, 21, 21, 0.34);
 }
