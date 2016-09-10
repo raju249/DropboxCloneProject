@@ -167,9 +167,11 @@ def delete(folder,file):
         session.query(Files).filter_by(name = file).delete()
         session.commit()
         os.remove(current_user.rootFolder + "/" + folder + "/" + file)
-        return "True"
+        return render_template("delete.html")
     except Exception as e:
         print e
+        return "False"
+
 @application.route("/logout")
 def logout():
     logout_user()

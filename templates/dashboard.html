@@ -51,7 +51,6 @@
 			<div class="btn-group pull-right">
 				<button id="new_folder" class="btn btn-success btn-sm"><i class="material-icons md-18">create_new_folder</i><span class="text"> New Folder</span></button>
 				<button id="new_file" class="btn btn-info btn-sm"><i class="material-icons md-18">file_upload</i><span class="text"> Upload File</span></button>
-				<button class="btn btn-danger btn-sm" ng-click="delete_folder()"><i class="material-icons md-18">delete</i><span class="text"> Delete File</span></button>
 			</div>
 			<div class="col-md-2">
 				<a href="{{ url_for('index') }}"><h2>SaveIT</h2></a>
@@ -68,6 +67,7 @@
 			      	<th>Expand</th>
 			        <th>Folder name</th>
 			        <th># Files</th>
+			        <th>Action</th>
 			      </tr>
 			    </thead>
 			    <tbody>
@@ -76,6 +76,7 @@
 			      	<td ng-show="delete"><input type="checkbox" value="{{ '{{folder.id}}' }}" name="folder"></input></td>
 			        <td><i class="material-icons">folder</i><span class="text">{{ ' {{folder.name}}' }}</span></td>
 			        <td>{{ '{{folder.files.length}}' }}</td>
+			        <td><a href="#"><i class="material-icons md-18">delete</i> Delete Directory</a></td>
 			      </tr>
 			    </tbody>
 			</table>
@@ -83,13 +84,20 @@
 			<div id="content">
 				<table class="table table-striped table-hover">
 		        	<thead>
-		        		<tr>File Name</tr>
-		        		<tr>Action</tr>
+		        		<tr>
+		        			<th>File Name</th>
+		        			<th>Action</th>
+		        		</tr>
 		        	</thead>
 		        	<tbody>
 		        		<tr ng-repeat="file in files">
 		        			<td>{{ '{{file}}' }}</td>
-		        			<td><a href="download/{{ '{{folder}}' + "/" + '{{file}}' }}">Download</a> | <a href="delete/{{ '{{folder}}' + "/" + '{{file}}' }}">Delete</a></td>
+		        			<td>
+		        				<a href="download/{{ '{{folder}}' + "/" + '{{file}}' }}"> 
+		        					<i class="material-icons md-18">file_download</i> Download</a> | 
+		        				<a href="delete/{{ '{{folder}}' + "/" + '{{file}}' }}">
+		        					<i class="material-icons md-18">delete</i> Delete</a>
+		        			</td>
 		        		</tr>
 		        	</tbody>
 			     </table>
