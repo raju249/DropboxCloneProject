@@ -19,6 +19,7 @@
 		crossorigin="anonymous"></script>
 		<!--Angular from google cdn -->
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<script src="https://rawgit.com/makeusabrew/bootbox/f3a04a57877cab071738de558581fbc91812dce9/bootbox.js"></script>
 		<script src="../static/js/index.js" type="text/javascript"></script>
 		<script src="../static/app/LoginController.js" type="text/javascript"></script>
 		<script src="../static/app/services.js"></script>
@@ -63,7 +64,6 @@
 				<table class="table table-striped table-hover">
 				<thead>
 			      <tr>
-			      	<th class="new" ng-show="delete">Delete</th>
 			      	<th>Expand</th>
 			        <th>Folder name</th>
 			        <th># Files</th>
@@ -73,10 +73,9 @@
 			    <tbody>
 			      <tr ng-repeat="folder in folder_names">
 			      	<td><a href="#" id="expand" ng-click="show_index()"><i class="material-icons">add</i></a></td>
-			      	<td ng-show="delete"><input type="checkbox" value="{{ '{{folder.id}}' }}" name="folder"></input></td>
 			        <td><i class="material-icons">folder</i><span class="text">{{ ' {{folder.name}}' }}</span></td>
 			        <td>{{ '{{folder.files.length}}' }}</td>
-			        <td><a href="#"><i class="material-icons md-18">delete</i> Delete Directory</a></td>
+			        <td><a href="#" id="{{ '{{folder.name}}' }}" ng-click="delete_folder()"><i class="material-icons md-18">delete</i> Delete Directory</a></td>
 			      </tr>
 			    </tbody>
 			</table>

@@ -2,7 +2,7 @@ from flask import Flask,render_template,request,jsonify,redirect,url_for,send_fr
 from server.database_setup import User,DBSession,Folders,Files
 from server import signupLoginHelpers
 from flask_login import login_required,logout_user,current_user
-import os
+import os,shutil
 from werkzeug.utils import secure_filename
 from server.folderCreation import createFolderHelper
 
@@ -168,6 +168,21 @@ def delete(folder,file):
         session.commit()
         os.remove(current_user.rootFolder + "/" + folder + "/" + file)
         return render_template("delete.html")
+    except Exception as e:
+        print e
+        return "False"
+
+@application.route("/delete/<folder>",methods=["GET"])
+@login_required
+def deleteFolder(folder):
+    try:
+        session = DBSession()
+        session.query(Folders).filter_by(name = folder).delete()
+        session.query(Files).filter_by(parentFolder = current_user.rootFolder + "/" + folder).delete()
+        session.commit()
+        folder_to_remove = current_user.rootFolder + "/" + folder
+        shutil.rmtree(folder_to_remove)
+        return "True"
     except Exception as e:
         print e
         return "False"

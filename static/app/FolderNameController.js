@@ -1,20 +1,17 @@
 /* global angular */
 /* global $*/
+/* global bootbox*/
 angular.module("saveItApp")
         .controller("FolderNameController",['$scope','$http','toggleData',function($scope,$http,toggleData){
             $scope.folder_creation_error = false;
-            $scope.delete = false;
-            var firstPress = false;
             $scope.areFolders = true;
             $scope.loading = true;
             $scope.folder_names = [];
             
             $scope.show_index = function(){
-                console.log(this);
                 $scope.folder = this.folder.name;
-                console.log($scope.folder);
                 $scope.files = $scope.folder_names[this.$index].files;
-            }
+            };
             
             function getFolders(){
                 $http.get("/userFolder")
@@ -29,7 +26,7 @@ angular.module("saveItApp")
                         $scope.areFolders = false;
                     }
                 },function(response){
-                    console.log(response)
+                    console.log(response);
                 });
             }
             
@@ -52,6 +49,7 @@ angular.module("saveItApp")
                              else{
                                  $scope.folder_creation_error = true;
                                  toggleData.toggle_data("status",true,"Create folder");
+                                 getFolders();
                              }
                         },
                         function(response){
@@ -60,30 +58,6 @@ angular.module("saveItApp")
                             toggleData.toggle_data("status",true,"Create folder");
                         });
             };
-            
-            $scope.delete_folder = function(){
-                $scope.delete = true;
-                if (firstPress){
-                    var count = 0;
-                    $('input[name="folder"]:checked').each(function(){
-                        count++;
-                    });
-                    console.log(count);
-                    $('input[name="folder"]:checked').each(function() {
-                        var length = $scope.folder_names.length;
-                        for(var i = 0; i < length; i++){
-                            if (($scope.folder_names[i]).id == Number(this.value)){
-                                $scope.folder_names.splice(i,count);
-                            }
-                        }
-                    });
-                    $scope.delete = false;
-                    firstPress = false;
-                }
-                else{
-                    firstPress = true;
-                }
-            }
             
             $scope.upload_file = function(){
                 $("#progress_bar").show();
@@ -122,7 +96,25 @@ angular.module("saveItApp")
                     }
                 });
                 
-            }
+            };
+            
+            $scope.delete_folder = function(){
+                var folder = this.folder.name;
+                
+                bootbox.confirm("Are you sure?", function(result) {
+                    if (result){
+                        toggleData.toggle_data(folder,false,"Deleting..");
+                        $http.get("/delete/" + folder)
+                             .then(function(response){
+                                if (response["data"] == "True"){
+                                    getFolders();
+                                }
+                             },function(error){
+                                console.log(error);
+                        });
+                    }
+                }); 
+            };
         }])
         .directive("folderDirective",function(){
            return {
