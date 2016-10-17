@@ -34,6 +34,12 @@ class Files(Base):
     folder_id = Column(Integer)
     parentFolder = Column(String(250), unique = False, nullable = False)
     
+class Share(Base):
+    __tablename__ = 'share'
+    
+    id = Column(Integer,primary_key = True)
+    pass_code = Column(String(250), unique = False, nullable = False)
+    file_name = Column(String(250), unique = False, nullable = False)
     
 engine = create_engine("sqlite:///saveit.db")
 Base.metadata.create_all(engine)
