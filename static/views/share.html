@@ -1,0 +1,18 @@
+<div id="fileUploadModel" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" type="button" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Share File</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-inline" name="fileUploadForm" enctype=multipart/form-data id="fileForm">
+            <div class="form-group" ng-if="folder_creation_error">
+              <input></input>
+            </div>
+            <button class="btn btn-success pull-right" ng-click="upload_file()" type="submit" id="upload_button">Upload File</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
